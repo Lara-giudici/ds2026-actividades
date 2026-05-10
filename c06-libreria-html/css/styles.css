@@ -2,3 +2,52 @@
     height: 400px;
     object-fit: cover;
 }
+
+:root {
+    --color-principal: #0f3e6d; 
+    --color-acento: #2263e6;   
+    --fuente-titulos: 'Playfair Display', serif; 
+}
+
+body {
+    background-color: #a9bfd6;
+    color: #4fb6cf;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, var(--color-principal) 0%, #0c0e69 100%) !important;
+}
+
+.card {
+    border: none;
+    border-radius: 15px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 20px rgba(35, 21, 99, 0.15) !important;
+}
+
+.btn-primary {
+    background-color: var(--color-acento) !important;
+    border-color: var(--color-acento) !important;
+    border-radius: 25px; 
+    font-weight: bold;
+    padding: 10px 25px;
+}
+
+.btn-primary:hover {
+    filter: brightness(90%);
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.form-control:focus {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 0.25rem rgba(230, 126, 34, 0.25);
+}
