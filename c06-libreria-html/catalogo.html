@@ -51,186 +51,22 @@
 </nav>
 
 <div class="container my-5">
-
-    <h1 class="mb-4">
-        Catálogo de Libros
-    </h1>
-
-    <div class="row g-4">
-        
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <img 
-                    src="https://m.media-amazon.com/images/I/81iqZ2HHD-L.jpg"
-                    class="card-img-top"
-                    alt="Harry Potter"
-                >
-
-                <div class="card-body d-flex flex-column">
-
-                    <h5 class="card-title">
-                        Harry Potter
-                    </h5>
-
-                    <p class="card-text">
-                        J.K. Rowling
-                    </p>
-
-                    <h6 class="text-success">
-                        $25.000
-                    </h6>
-
-                    <a href="libro.html" class="btn btn-primary mt-auto">
-                        Ver detalle
-                    </a>
-
-                </div>
-
+    <h2 class="text-center mb-4">Catálogo de Libros</h2>
+    
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="input-group mb-3">
+                <input type="text" id="inputBusqueda" class="form-control form-control-lg" placeholder="Buscar por título o autor..." aria-label="Buscar libro">
+                <button class="btn btn-primary px-4" type="button" id="btnBuscar">Buscar</button>
             </div>
-
         </div>
-
-        
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <img 
-                    src="https://m.media-amazon.com/images/I/91RQ5d-eIqL.jpg"
-                    class="card-img-top"
-                    alt="Percy Jackson"
-                >
-
-                <div class="card-body d-flex flex-column">
-
-                    <h5 class="card-title">
-                        Percy Jackson
-                    </h5>
-
-                    <p class="card-text">
-                        Rick Riordan
-                    </p>
-
-                    <h6 class="text-success">
-                        $20.000
-                    </h6>
-
-                    <a href="libro.html" class="btn btn-primary mt-auto">
-                        Ver detalle
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-       
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <img 
-                    src="https://m.media-amazon.com/images/I/61JfGcL2ljL.jpg"
-                    class="card-img-top"
-                    alt="Juegos del Hambre"
-                >
-
-                <div class="card-body d-flex flex-column">
-
-                    <h5 class="card-title">
-                        Juegos del Hambre
-                    </h5>
-
-                    <p class="card-text">
-                        Suzanne Collins
-                    </p>
-
-                    <h6 class="text-success">
-                        $30.000
-                    </h6>
-
-                    <a href="libro.html" class="btn btn-primary mt-auto">
-                        Ver detalle
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <img 
-                    src="https://images-na.ssl-images-amazon.com/images/I/71tmow7B+FL.jpg"
-                    class="card-img-top"
-                    alt="El Principito"
-                >
-
-                <div class="card-body d-flex flex-column">
-
-                    <h5 class="card-title">
-                        El Principito
-                    </h5>
-
-                    <p class="card-text">
-                        Antoine de Saint-Exupéry
-                    </p>
-
-                    <h6 class="text-success">
-                        $15.000
-                    </h6>
-
-                    <a href="libro.html" class="btn btn-primary mt-auto">
-                        Ver detalle
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <img 
-                    src="https://images-na.ssl-images-amazon.com/images/I/81oAEEwxBWL.jpg"
-                    class="card-img-top"
-                    alt="Cien años de soledad"
-                >
-
-                <div class="card-body d-flex flex-column">
-
-                    <h5 class="card-title">
-                        Cien años de soledad
-                    </h5>
-
-                    <p class="card-text">
-                        Gabriel García Márquez
-                    </p>
-
-                    <h6 class="text-success">
-                        $10.000
-                    </h6>
-
-                    <a href="libro.html" class="btn btn-primary mt-auto">
-                        Ver detalle
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
+    </div>
+    <div id="resultados" class="row g-4">
     </div>
 </div>
+
+
+<script src="js/data.js"></script>
+
+
+
