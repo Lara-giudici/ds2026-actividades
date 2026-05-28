@@ -1,122 +1,90 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+
+import BookCard from "./components/BookCard";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [mostrar, setMostrar] = useState(false);
+
+  function cambiarEstado() {
+    setMostrar(!mostrar);
+  }
+
+  const libros = [
+    {
+      titulo: "Harry Potter",
+      autor: "J.K Rowling",
+      imagen:
+        "https://covers.openlibrary.org/b/id/10521270-L.jpg",
+    },
+
+   {
+      titulo: "El Principito",
+      autor: "Antoine de Saint-Exupéry",
+      imagen:
+        "https://images-na.ssl-images-amazon.com/images/I/71tmow7B+FL.jpg",
+    },
+
+    {
+      titulo: "Percy Jackson",
+      autor: "Rick Riordan",
+      imagen:
+        "https://m.media-amazon.com/images/I/91RQ5d-eIqL.jpg",
+    }
+  ];
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      <Navbar />
+
+      <div className="container mt-4">
+
+        <h1 className="text-center mb-4">
+          Libros Destacados
+        </h1>
+
+        <div className="text-center mb-4">
+
+          <button
+            className="btn btn-success"
+            onClick={cambiarEstado}
+          >
+            Mostrar descripción
+          </button>
+
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+
+        {mostrar && (
+
+          <p className="text-center">
+            Esta es una librería creada con React,
+            TypeScript y Bootstrap.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <div className="d-flex flex-wrap justify-content-center">
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+          {libros.map((libro, index) => (
+
+            <BookCard
+              key={index}
+              titulo={libro.titulo}
+              autor={libro.autor}
+              imagen={libro.imagen}
+            />
+
+          ))}
+
+        </div>
+
+      </div>
+
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
