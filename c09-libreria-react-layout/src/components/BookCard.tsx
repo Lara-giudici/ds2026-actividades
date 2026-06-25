@@ -1,42 +1,18 @@
-type Props = {
-  titulo: string;
-  autor: string;
-  imagen: string;
-};
+import { Link } from "react-router-dom"
 
-function BookCard(props: Props) {
-
+export default function BookCard({ titulo, autor, imagen, index }: any) {
   return (
-
-    <div
-      className="card m-3"
-      style={{ width: "18rem" }}
-    >
-
-      <img
-        src={props.imagen}
-        className="card-img-top"
-        alt={props.titulo}
-      />
+    <div className="card p-3 m-2" style={{ width: "200px" }}>
+      <img src={imagen} className="card-img-top" />
 
       <div className="card-body">
+        <h5>{titulo}</h5>
+        <p>{autor}</p>
 
-        <h5 className="card-title">
-          {props.titulo}
-        </h5>
-
-        <p className="card-text">
-          {props.autor}
-        </p>
-
-        <button className="btn btn-primary">
+        <Link to={`/libros/${index}`} className="btn btn-primary">
           Ver más
-        </button>
-
+        </Link>
       </div>
-
     </div>
-  );
+  )
 }
-
-export default BookCard;
