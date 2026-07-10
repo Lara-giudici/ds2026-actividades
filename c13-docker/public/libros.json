@@ -1,0 +1,17 @@
+[
+  {
+    "titulo": "Harry Potter",
+    "autor": "J.K. Rowling",
+    "imagen": "https://covers.openlibrary.org/b/id/10521270-L.jpg"
+  },
+  {
+    "titulo": "El Principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "imagen": "https://m.media-amazon.com/images/I/71tmow7B+FL.jpg"
+  },
+  {
+    "titulo": "Percy Jackson",
+    "autor": "Rick Riordan",
+    "imagen": "https://m.media-amazon.com/images/I/91RQ5d-eIqL.jpg"
+  }
+]
