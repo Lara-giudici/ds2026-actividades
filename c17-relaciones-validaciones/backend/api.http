@@ -1,0 +1,102 @@
+@baseUrl = http://localhost:3000
+
+### LISTAR LIBROS
+GET {{baseUrl}}/api/libros
+
+### OBTENER UN LIBRO
+GET {{baseUrl}}/api/libros/1
+
+### LIBRO INEXISTENTE
+GET {{baseUrl}}/api/libros/999
+
+### CREAR LIBRO
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Rayuela",
+  "autor": "Julio Cortazar",
+  "imagen": "https://example.com/rayuela.jpg"
+}
+
+### MODIFICAR LIBRO
+PUT {{baseUrl}}/api/libros/1
+Content-Type: application/json
+
+{
+  "titulo": "Harry Potter Edicion Especial",
+  "autor": "J.K. Rowling",
+  "imagen": "https://covers.openlibrary.org/b/id/10521270-L.jpg"
+}
+
+### ELIMINAR LIBRO
+DELETE {{baseUrl}}/api/libros/3
+
+### LISTAR AUTORES
+GET {{baseUrl}}/api/autores
+
+### OBTENER UN AUTOR
+GET {{baseUrl}}/api/autores/1
+
+### AUTOR INEXISTENTE
+GET {{baseUrl}}/api/autores/999
+
+### CREAR AUTOR
+POST {{baseUrl}}/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Julio Cortazar"
+}
+
+### MODIFICAR AUTOR
+PUT {{baseUrl}}/api/autores/1
+Content-Type: application/json
+
+{
+  "nombre": "J.K. Rowling"
+}
+
+### ELIMINAR AUTOR
+DELETE {{baseUrl}}/api/autores/3
+
+### 400 - libro sin título
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "imagen": "https://example.com/sin-titulo.jpg",
+  "autorId": 1
+}
+
+### 400 - id inválido
+GET http://localhost:3000/api/libros/abc
+
+### 400 - autor inexistente
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Libro huérfano",
+  "imagen": "https://example.com/huerfano.jpg",
+  "autorId": 9999
+}
+
+### 409 - autor duplicado
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "J.K. Rowling"
+}
+
+### 409 - borrar autor con libros
+DELETE http://localhost:3000/api/autores/1
+
+### 404 - actualizar libro inexistente
+PUT http://localhost:3000/api/libros/9999
+Content-Type: application/json
+
+{
+  "titulo": "Libro inexistente"
+}
