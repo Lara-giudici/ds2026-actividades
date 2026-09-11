@@ -1,0 +1,212 @@
+@baseUrl = http://localhost:3000
+
+### LISTAR LIBROS
+GET {{baseUrl}}/api/libros
+
+### OBTENER UN LIBRO
+GET {{baseUrl}}/api/libros/1
+
+### LIBRO INEXISTENTE
+GET {{baseUrl}}/api/libros/999
+
+### CREAR LIBRO
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Rayuela",
+  "autor": "Julio Cortazar",
+  "imagen": "https://example.com/rayuela.jpg"
+}
+
+### MODIFICAR LIBRO
+PUT {{baseUrl}}/api/libros/1
+Content-Type: application/json
+
+{
+  "titulo": "Harry Potter Edicion Especial",
+  "autor": "J.K. Rowling",
+  "imagen": "https://covers.openlibrary.org/b/id/10521270-L.jpg"
+}
+
+### ELIMINAR LIBRO
+DELETE {{baseUrl}}/api/libros/3
+
+### LISTAR AUTORES
+GET {{baseUrl}}/api/autores
+
+### OBTENER UN AUTOR
+GET {{baseUrl}}/api/autores/1
+
+### AUTOR INEXISTENTE
+GET {{baseUrl}}/api/autores/999
+
+### CREAR AUTOR
+POST {{baseUrl}}/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Julio Cortazar"
+}
+
+### MODIFICAR AUTOR
+PUT {{baseUrl}}/api/autores/1
+Content-Type: application/json
+
+{
+  "nombre": "J.K. Rowling"
+}
+
+### ELIMINAR AUTOR
+DELETE {{baseUrl}}/api/autores/3
+
+### 400 - libro sin título
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "imagen": "https://example.com/sin-titulo.jpg",
+  "autorId": 1
+}
+
+### 400 - id inválido
+GET http://localhost:3000/api/libros/abc
+
+### 400 - autor inexistente
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Libro huérfano",
+  "imagen": "https://example.com/huerfano.jpg",
+  "autorId": 9999
+}
+
+### 409 - autor duplicado
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "J.K. Rowling"
+}
+
+### 409 - borrar autor con libros
+DELETE http://localhost:3000/api/autores/1
+
+### 404 - actualizar libro inexistente
+PUT http://localhost:3000/api/libros/9999
+Content-Type: application/json
+
+{
+  "titulo": "Libro inexistente"
+}
+
+### 1) REGISTRO CORRECTO - 201
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Prueba",
+  "email": "usuario.prueba@libreria.test",
+  "password": "Usuario123"
+}
+
+### 2) REGISTRO DUPLICADO - 409
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Prueba",
+  "email": "usuario.prueba@libreria.test",
+  "password": "Usuario123"
+}
+
+### 3) REGISTRO CON PASSWORD DÉBIL - 400
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Débil",
+  "email": "debil@libreria.test",
+  "password": "abc"
+}
+
+### 4) LOGIN USUARIO INEXISTENTE - 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "noexiste@libreria.test",
+  "password": "Usuario123"
+}
+
+### 5) LOGIN PASSWORD INCORRECTA - 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "cliente@libreria.com",
+  "password": "Incorrecta123"
+}
+
+### 6) LOGIN CLIENTE CORRECTO - 200
+# @name loginCliente
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "cliente@libreria.com",
+  "password": "Cliente1234"
+}
+
+### 7) /YO SIN TOKEN - 401
+GET {{baseUrl}}/api/auth/yo
+
+### 8) /YO CON CLIENTE - 200
+GET {{baseUrl}}/api/auth/yo
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 9) CREAR LIBRO SIN TOKEN - 401
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Libro Sin Token",
+  "autorId": 1,
+  "imagen": "https://example.com/sin-token.jpg"
+}
+
+### 10) CREAR LIBRO CON CLIENTE - 403
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+{
+  "titulo": "Libro Cliente",
+  "autorId": 1,
+  "imagen": "https://example.com/cliente.jpg"
+}
+
+### LOGIN ADMIN
+# @name loginAdmin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@libreria.com",
+  "password": "Admin1234"
+}
+
+### 11) CREAR LIBRO CON ADMIN - 201
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+{
+  "titulo": "Libro Admin",
+  "autorId": 1,
+  "imagen": "https://example.com/admin.jpg"
+}
+
+### 12) LISTAR LIBROS SIN TOKEN - 200
+GET {{baseUrl}}/api/libros
