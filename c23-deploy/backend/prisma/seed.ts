@@ -39,18 +39,21 @@ const usuarios = [
   {
     email: "admin@libreria.com",
     nombre: "Administrador",
-    password: "Admin1234",
+    password: process.env.SEED_ADMIN_PASSWORD!,
     rol: Rol.ADMIN
   },
   {
     email: "cliente@libreria.com",
     nombre: "Cliente",
-    password: "Cliente1234",
+    password: process.env.SEED_CLIENTE_PASSWORD!,
     rol: Rol.CLIENTE
   }
 ];
 
 async function main() {
+  if (!process.env.SEED_ADMIN_PASSWORD || !process.env.SEED_CLIENTE_PASSWORD) {
+    throw new Error("Faltan las contraseñas de los usuarios para ejecutar el seed");
+  }
   for (const autor of autores) {
     await prisma.autor.upsert({
       where: { nombre: autor.nombre },
