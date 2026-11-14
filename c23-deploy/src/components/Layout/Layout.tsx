@@ -7,11 +7,14 @@ type Props = {
 
 function Layout({ children }: Props) {
   return (
-    <>
+    <div className="layout-libreria">
       <Navbar />
-      {children}
-      <Footer />
-    </>
+
+      <main className="contenido-libreria">
+        {children}
+        <Footer />
+      </main>
+    </div>
   );
 }
 

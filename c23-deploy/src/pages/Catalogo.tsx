@@ -1,17 +1,12 @@
+
 import { Spinner, Alert } from "react-bootstrap";
 import BookCard from "../components/BookCard";
 import type { Book } from "../types/Book";
 import { useFetch } from "../hooks/useFetch";
 
-
 export default function Catalogo() {
-  
   const { data: libros, loading, error } =
     useFetch<Book[]>("/libros");
-
-  
-
-   
 
   if (loading) {
     return (
@@ -31,10 +26,13 @@ export default function Catalogo() {
   }
 
   return (
-    <div className="container mt-4">
-      <h2>Catálogo</h2>
+    <section className="catalogo-libreria">
+      <div className="encabezado-catalogo">
+        <h1>Nuestro Catálogo</h1>
+        <p>Encontrá tu próxima historia favorita</p>
+      </div>
 
-      <div className="d-flex flex-wrap justify-content-center">
+      <div className="grilla-libros">
         {(libros ?? []).map((libro) => (
           <BookCard
             key={libro.id}
@@ -45,6 +43,6 @@ export default function Catalogo() {
           />
         ))}
       </div>
-    </div>
-  )
+    </section>
+  );
 }

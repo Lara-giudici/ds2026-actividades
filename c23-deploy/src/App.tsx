@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Catalogo from "./pages/Catalogo";
 import LibroDetalle from "./pages/LibroDetalle";
 import AltaLibro from "./pages/AltaLibro";
+import EditarLibro from "./pages/EditarLibro";
 import Login from "./pages/Login";
 import SinPermiso from "./pages/SinPermiso";
 
@@ -22,6 +23,7 @@ export default function App() {
 
         <Route element={<PrivateRoute rol="ADMIN" />}>
           <Route path="/libros/nuevo" element={<AltaLibro />} />
+          <Route path="/libros/:id/editar" element={<EditarLibro />} />
         </Route>
       </Routes>
     </Layout>

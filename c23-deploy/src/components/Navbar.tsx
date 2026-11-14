@@ -1,65 +1,60 @@
-import { Link } from "react-router-dom";
+
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const { usuario, estaAutenticado, tieneRol, logout } = useAuth();
 
   return (
-    <nav className="navbar navbar-dark bg-dark px-4">
+    <>
+      <aside className="sidebar-libreria">
+        <div className="sidebar-marca">
+          <div className="sidebar-icono">✦</div>
+          <h2>Entre Páginas</h2>
+          <p>Librería Online</p>
+        </div>
 
-      <span className="navbar-brand">
-        Librería React
-      </span>
+        <nav className="sidebar-menu">
+          <NavLink to="/" end className="sidebar-enlace">
+            <span>⌂</span> Inicio
+          </NavLink>
 
-      <div>
-        <Link
-          to="/"
-          className="text-white text-decoration-none me-3"
-        >
-          Inicio
-        </Link>
+          <NavLink to="/catalogo" className="sidebar-enlace">
+            <span>▤</span> Catálogo
+          </NavLink>
 
-        <Link
-          to="/catalogo"
-          className="text-white text-decoration-none me-3"
-        >
-          Catálogo
-        </Link>
+          {tieneRol("ADMIN") && (
+            <NavLink to="/libros/nuevo" className="sidebar-enlace">
+              <span>＋</span> Alta libro
+            </NavLink>
+          )}
+        </nav>
 
-        {tieneRol("ADMIN") && (
-          <Link
-            to="/libros/nuevo"
-            className="text-white text-decoration-none me-3"
-          >
-            Nuevo libro
-          </Link>
-        )}
-
-        {estaAutenticado && usuario ? (
-          <>
-            <span className="text-white me-2">
-              Hola, {usuario.nombre} ·
-            </span>
-
+        <div className="sidebar-inferior">
+          {estaAutenticado ? (
             <button
               type="button"
-              className="btn btn-link text-white text-decoration-none p-0"
+              className="sidebar-enlace sidebar-boton"
               onClick={logout}
             >
-              Salir
+              <span>↪</span> Salir
             </button>
-          </>
-        ) : (
-          <Link
-            to="/login"
-            className="text-white text-decoration-none"
-          >
-            Ingresar
-          </Link>
-        )}
-      </div>
+          ) : (
+            <NavLink to="/login" className="sidebar-enlace">
+              <span>→</span> Ingresar
+            </NavLink>
+          )}
+        </div>
+      </aside>
 
-    </nav>
+      <header className="barra-superior">
+        {estaAutenticado && usuario ? (
+          <span>Hola, {usuario.nombre}</span>
+        ) : (
+          <span>Bienvenido a Entre Páginas</span>
+        )}
+      </header>
+    </>
   );
 }
 

@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import type { Autor } from "../types/Book";
 
@@ -15,14 +16,26 @@ export default function BookCard({
   id,
 }: BookCardProps) {
   return (
-    <div className="card p-3 m-2" style={{ width: "200px" }}>
-      <img src={imagen} className="card-img-top" alt={titulo} />
+    <div className="card tarjeta-libro">
+      <div className="contenedor-portada">
+        <img
+          src={imagen}
+          className="portada-libro"
+          alt={titulo}
+        />
+      </div>
 
-      <div className="card-body">
-        <h5>{titulo}</h5>
-        <p>{autor.nombre}</p>
+      <div className="card-body cuerpo-tarjeta">
+        <h5 className="titulo-libro">{titulo}</h5>
 
-        <Link to={`/libros/${id}`} className="btn btn-primary">
+        <p className="autor-libro">
+          {autor.nombre}
+        </p>
+
+        <Link
+          to={`/libros/${id}`}
+          className="btn btn-primary boton-libro"
+        >
           Ver más
         </Link>
       </div>

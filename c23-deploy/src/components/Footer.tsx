@@ -1,7 +1,11 @@
 function Footer() {
   return (
-    <footer className="bg-dark text-white text-center p-3 mt-4">
-      React + TypeScript + Bootstrap
+    <footer className="footer-libreria">
+      <h3>Entre Páginas</h3>
+
+      <p>Un lugar para descubrir nuevas historias.</p>
+
+      <span>© 2026 Entre Páginas</span>
     </footer>
   );
 }

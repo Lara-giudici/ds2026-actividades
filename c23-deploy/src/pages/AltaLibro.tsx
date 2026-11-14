@@ -1,8 +1,9 @@
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { apiFetch } from "../services/api";
 
@@ -16,9 +17,9 @@ const libroSchema = z.object({
     .min(1, "La imagen es obligatoria"),
 
   autorId: z
-  .number()
-  .int()
-  .positive("El autor es obligatorio"),
+    .number()
+    .int()
+    .positive("El autor es obligatorio"),
 });
 
 type LibroForm = z.infer<typeof libroSchema>;
@@ -27,6 +28,7 @@ export default function AltaLibro() {
   const navigate = useNavigate();
 
   const [error, setError] = useState<string | null>(null);
+  const [guardando, setGuardando] = useState(false);
 
   const {
     register,
@@ -40,6 +42,7 @@ export default function AltaLibro() {
   async function onSubmit(datos: LibroForm) {
     try {
       setError(null);
+      setGuardando(true);
 
       await apiFetch("/libros", {
         method: "POST",
@@ -56,72 +59,113 @@ export default function AltaLibro() {
           ? e.message
           : "Error desconocido"
       );
+    } finally {
+      setGuardando(false);
     }
   }
 
   return (
-    <div className="container mt-4">
-      <h2>Alta de Libro</h2>
+    <section className="formulario-libreria">
+      <Link to="/catalogo" className="volver-catalogo">
+        ← Volver al catálogo
+      </Link>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="formulario-tarjeta">
+        <div className="formulario-encabezado">
+          <span className="detalle-etiqueta">
+            ENTRE PÁGINAS
+          </span>
 
-        <div className="mb-3">
-          <label>Título</label>
+          <h1>Agregar nuevo libro</h1>
 
-          <input
-            className="form-control"
-            {...register("titulo")}
-          />
-
-          {errors.titulo && (
-            <p className="text-danger">
-              {errors.titulo.message}
-            </p>
-          )}
+          <p>
+            Completá los datos para incorporar un libro
+            a nuestra colección.
+          </p>
         </div>
 
-        <div className="mb-3">
-          <label>Imagen</label>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="campo-formulario">
+            <label htmlFor="titulo">Título del libro</label>
 
-          <input
-            className="form-control"
-            {...register("imagen")}
-          />
+            <input
+              id="titulo"
+              type="text"
+              className="form-control"
+              placeholder="Ej.: El Principito"
+              {...register("titulo")}
+            />
 
-          {errors.imagen && (
-            <p className="text-danger">
-              {errors.imagen.message}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-3">
-          <label>ID del autor</label>
-
-          <input
-            type="number"
-            className="form-control"
-            {...register("autorId", { valueAsNumber: true })}
-          />
-
-          {errors.autorId && (
-            <p className="text-danger">
-              {errors.autorId.message}
-            </p>
-          )}
-        </div>
-
-        {error && (
-          <div className="alert alert-danger">
-            {error}
+            {errors.titulo && (
+              <p className="text-danger mt-1">
+                {errors.titulo.message}
+              </p>
+            )}
           </div>
-        )}
 
-        <button className="btn btn-primary">
-          Guardar
-        </button>
+          <div className="campo-formulario">
+            <label htmlFor="imagen">URL de la portada</label>
 
-      </form>
-    </div>
+            <input
+              id="imagen"
+              type="text"
+              className="form-control"
+              placeholder="https://..."
+              {...register("imagen")}
+            />
+
+            {errors.imagen && (
+              <p className="text-danger mt-1">
+                {errors.imagen.message}
+              </p>
+            )}
+          </div>
+
+          <div className="campo-formulario">
+            <label htmlFor="autorId">ID del autor</label>
+
+            <input
+              id="autorId"
+              type="number"
+              min="1"
+              className="form-control"
+              placeholder="Ej.: 1"
+              {...register("autorId", {
+                valueAsNumber: true
+              })}
+            />
+
+            {errors.autorId && (
+              <p className="text-danger mt-1">
+                {errors.autorId.message}
+              </p>
+            )}
+          </div>
+
+          {error && (
+            <div className="alert alert-danger">
+              {error}
+            </div>
+          )}
+
+          <div className="formulario-acciones">
+            <button
+              type="submit"
+              className="boton-guardar"
+              disabled={guardando}
+            >
+              {guardando ? "Guardando..." : "Guardar libro"}
+            </button>
+
+            <Link
+              to="/catalogo"
+              className="boton-cancelar"
+            >
+              Cancelar
+            </Link>
+          </div>
+        </form>
+      </div>
+    </section>
   );
 }

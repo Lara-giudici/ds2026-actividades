@@ -1,55 +1,50 @@
-import { useEffect, useState } from "react";
+
+import { Spinner, Alert } from "react-bootstrap";
 import BookCard from "../components/BookCard";
 import type { Book } from "../types/Book";
 import { useFetch } from "../hooks/useFetch";
 
 function Home() {
-  const [mostrar, setMostrar] = useState(false);
-
-  const { data: libros } = useFetch<Book[]>("/libros");
-
-  useEffect(() => {
-    console.log("Home cargada");
-  }, []);
-
-  function cambiarEstado() {
-    setMostrar(!mostrar);
-  }
+  const {
+    data: libros,
+    loading,
+    error
+  } = useFetch<Book[]>("/libros");
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">
-        Libros Destacados
-      </h1>
-
-      <div className="text-center mb-4">
-        <button
-          className="btn btn-success"
-          onClick={cambiarEstado}
-        >
-          Mostrar descripción
-        </button>
+    <section className="inicio-libreria">
+      <div className="encabezado-inicio">
+        <h1>Libros Destacados</h1>
+        <p>Descubrí nuestras historias</p>
       </div>
 
-      {mostrar && (
-        <p className="text-center">
-          Esta es una librería creada con React,
-          TypeScript y Bootstrap.
-        </p>
+      {loading && (
+        <div className="text-center mt-5">
+          <Spinner animation="border" />
+          <p>Cargando libros...</p>
+        </div>
       )}
 
-      <div className="d-flex flex-wrap justify-content-center">
-        {(libros ?? []).slice(0, 3).map((libro) => (
-          <BookCard
-            key={libro.id}
-            titulo={libro.titulo}
-            autor={libro.autor}
-            imagen={libro.imagen}
-            id={libro.id}
-          />
-        ))}
-      </div>
-    </div>
+      {error && (
+        <Alert variant="danger">
+          {error}
+        </Alert>
+      )}
+
+      {!loading && !error && (
+        <div className="grilla-libros">
+          {(libros ?? []).slice(0, 3).map((libro) => (
+            <BookCard
+              key={libro.id}
+              titulo={libro.titulo}
+              autor={libro.autor}
+              imagen={libro.imagen}
+              id={libro.id}
+            />
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
 
