@@ -8,13 +8,16 @@ import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
 
+
 const corsOptions = {
   origin: [
+    "http://localhost:5173",
     process.env.FRONTEND_URL ?? "http://localhost:5173"
   ]
 };
 
 app.use(cors(corsOptions));
+
 app.use(express.json());
 
 app.get("/", (_req, res) => {
